@@ -31,6 +31,13 @@ RUN set -x \
                               "${BAMBOO_INSTALL}/conf/server.xml" \
     && touch -d "@0"          "${BAMBOO_INSTALL}/conf/server.xml"
 
+# Install maven 3.3.9
+RUN wget http://mirrors.sonic.net/apache/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz && \
+    tar -zxf apache-maven-3.3.9-bin.tar.gz && \
+    mv apache-maven-3.3.9 /usr/local && \
+    rm -f apache-maven-3.3.9-bin.tar.gz && \
+    ln -s /usr/local/apache-maven-3.3.9/bin/mvn /usr/bin/mvn && \
+    ln -s /usr/local/apache-maven-3.3.9 /usr/local/apache-maven
 
 # Use the default unprivileged account. This could be considered bad practice
 # on systems where multiple processes end up being executed by 'daemon' but
